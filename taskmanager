@@ -1,0 +1,49 @@
+using System;
+using System.Diagnostics;
+
+namespace lesson6taskmanager
+{
+    class Program
+    {
+        public static void ListAllProcess()
+        {
+            try
+            {
+                int processCount = 0;
+                Process[] processList = Process.GetProcesses();
+                foreach (Process process in processList)
+                {
+                    Console.WriteLine(process.ProcessName);
+                    processCount += 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Это полный список процессов", ex);
+
+            }
+        }
+        public static void KillProcess()
+        {
+            try
+            {
+                Console.Write("Введите имя процесса для завершения:");
+                string processKillName = Convert.ToString(Console.ReadLine());
+                foreach (Process proc in Process.GetProcessesByName(processKillName))
+                {
+                    proc.Kill();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка", ex);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            ListAllProcess();
+            KillProcess();
+            Console.ReadLine();
+        }
+    }
